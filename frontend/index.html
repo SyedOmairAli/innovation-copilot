@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Innovation Copilot</title>
+</head>
+<style>
+body {
+    font-family: Arial;
+    margin: 30px;
+    background: #0f172a;
+    color: white;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.card {
+    background: #1e293b;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+pre {
+    white-space: pre-wrap;
+}
+</style>
+
+<body>
+
+<h2>Innovation Copilot</h2>
+<div id="status"></div>
+<textarea id="idea" rows="5" cols="50" placeholder="Enter your idea..."></textarea>
+<br><br>
+
+<button onclick="run()">Analyze</button>
+<button onclick="demo()">Try Demo Idea</button>
+
+<pre id="output"></pre>
+
+<script>
+    function demo() {
+    document.getElementById("idea").value =
+    "AI system for early Alzheimer detection using speech patterns from mobile calls";
+}
+
+async function run() {
+    document.getElementById("status").innerText = "Analyzing idea...";
+    const idea = document.getElementById("idea").value;
+
+    const res = await fetch("http://127.0.0.1:8000/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idea })
+    });
+
+    document.getElementById("status").innerText = "Done!";
+
+    const data = await res.json();
+
+    document.getElementById("output").innerHTML = `
+<div class="card">
+<h2>Innovation Report</h2>
+<pre>${data.final_report}</pre>
+</div>
+
+<div class="card">
+<h3>Pipeline</h3>
+<pre><b>Plan:</b>\n${data.pipeline.plan}</pre>
+<pre><b>Research:</b>\n${data.pipeline.research}</pre>
+<pre><b>Gaps:</b>\n${data.pipeline.gaps}</pre>
+</div>
+`;
+}
+</script>
+
+</body>
+</html>
