@@ -1,18 +1,20 @@
+```mermaid
+
 flowchart TD
 
 %% ========== USER ==========
 User[User Input: Innovation Idea]
 
 %% ========== ORCHESTRATION ==========
-Orchestrator[Orchestrator\nMulti-Agent Controller]
+Orchestrator[Orchestrator Multi-Agent Controller]
 
 User --> Orchestrator
 
 %% ========== AGENTS ==========
-Planner[Planner Agent\nWork IQ Context]
-Research[Research Agent\nFoundry IQ Grounding]
-Gap[Gap Analyzer\nFabric IQ Scoring]
-Synth[Synthesizer\nExecutive Report Generator]
+Planner[Planner Agent Work IQ Context]
+Research[Research Agent Foundry IQ Grounding]
+Gap[Gap Analyzer Fabric IQ Scoring]
+Synth[Synthesizer Executive Report Generator]
 
 Orchestrator --> Planner
 Planner --> Research
@@ -20,9 +22,9 @@ Research --> Gap
 Gap --> Synth
 
 %% ========== IQ LAYERS ==========
-WorkIQ[(Work IQ\nWork Context Signals)]
-FoundryIQ[(Foundry IQ\nKnowledge Grounding)]
-FabricIQ[(Fabric IQ\nSemantic Scoring Model)]
+WorkIQ[(Work IQ Work Context Signals)]
+FoundryIQ[(Foundry IQ Knowledge Grounding)]
+FabricIQ[(Fabric IQ Semantic Scoring Model)]
 
 Planner --> WorkIQ
 Research --> FoundryIQ
@@ -30,7 +32,7 @@ Gap --> FabricIQ
 Synth --> FabricIQ
 
 %% ========== OUTPUT ==========
-Output[Final Output\nInnovation Intelligence Report]
+Output[Final Output Innovation Intelligence Report]
 
 Synth --> Output
 
