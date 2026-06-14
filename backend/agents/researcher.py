@@ -1,6 +1,7 @@
 from openai import AzureOpenAI
 import os
 from dotenv import load_dotenv
+from tools.iq_layer import FoundryIQ
 
 load_dotenv()
 
@@ -14,6 +15,9 @@ class ResearchAgent:
 
     def run(self, idea_summary: str):
 
+        iq = FoundryIQ()
+        knowledge = iq.retrieve_knowledge(idea_summary)
+
         response = client.chat.completions.create(
             model=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
             messages=[
@@ -23,11 +27,19 @@ Expand research areas for this idea:
 
 {idea_summary}
 
+Use the following grounded knowledge sources:
+
+{knowledge['sources']}
+
 Include:
 - Related technologies
 - Existing solutions
 - Data sources
 - Risks
+- Market trends
+- Research opportunities
+
+Make sure to align findings with the provided knowledge sources.
 """}
             ]
         )
